@@ -1,5 +1,7 @@
 package com.iffat.springhibernatejpacrud;
 
+import com.iffat.springhibernatejpacrud.dao.StudentDAO;
+import com.iffat.springhibernatejpacrud.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,9 +15,22 @@ public class SpringHibernateJpaCrudApplication {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(String[] args) {
+    public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
         return runner -> {
-            System.out.println("Hello World");
+            createStudent(studentDAO);
         };
+    }
+
+    private void createStudent(StudentDAO studentDAO) {
+        // create the student object
+        System.out.println("Creating new student object ...");
+        Student student = new Student("John","Doe","doe@gmail.com");
+
+        // save the student object
+        System.out.println("Saving the student ...");
+        studentDAO.save(student);
+
+        // display id of the saved student
+        System.out.println("Saved student. Generated id: " + student.getId());
     }
 }

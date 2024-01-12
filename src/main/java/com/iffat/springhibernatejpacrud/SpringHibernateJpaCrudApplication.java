@@ -22,8 +22,19 @@ public class SpringHibernateJpaCrudApplication {
             // createStudent(studentDAO);
             // createMultipleStudent(studentDAO);
             // readStudent(studentDAO);
-            queryForStudents(studentDAO);
+            // queryForStudents(studentDAO);
+            queryForStudentsByLastName(studentDAO);
         };
+    }
+
+    private void queryForStudentsByLastName(StudentDAO studentDAO) {
+        // get a list of students
+        List<Student> responseStudents = studentDAO.findByLastName("Wick");
+
+        // display list of students
+        for (Student student: responseStudents) {
+            System.out.println(student);
+        }
     }
 
     private void queryForStudents(StudentDAO studentDAO) {
@@ -74,7 +85,7 @@ public class SpringHibernateJpaCrudApplication {
     private void createStudent(StudentDAO studentDAO) {
         // create the student object
         System.out.println("Creating new student object ...");
-        Student student = new Student("John","Doe","doe@gmail.com");
+        Student student = new Student("John","Wick","doe@gmail.com");
 
         // save the student object
         System.out.println("Saving the student ...");
